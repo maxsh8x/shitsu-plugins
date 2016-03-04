@@ -54,7 +54,7 @@ class Chains:
         It's used as seed for generate a sequence of words.
         """
         kw_curs = self.__conn.cursor()
-        respond = kw_curs.execute('SELECT keyword FROM keywords ORDER BY RANDOM() LIMIT 1')
+        respond = kw_curs.execute('SELECT * FROM keywords ORDER BY RANDOM() LIMIT 1')
         keyword = respond.fetchone()[0]
         return keyword.replace('\n', '')
 
