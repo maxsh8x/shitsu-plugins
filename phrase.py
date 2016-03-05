@@ -80,6 +80,7 @@ else:
 
 
     class Phrase(modules.MessageModule):
+        highlight = False
         args = (0,)
 
         def run(self):
