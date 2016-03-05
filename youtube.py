@@ -16,6 +16,7 @@ class Youtube(modules.MessageModule):
         Youtube preview.
         For Psi+ (webkit version)  https://sourceforge.net/projects/psiplus/files/:
         Options -> Plugins -> Extended Options Plugin -> Groupchat -> Enable HTML rendering
+        shitsu.cfg -> max_groupchat_length = 50000
         """
         url_data = urlparse.urlparse(url)
         query = urlparse.parse_qs(url_data.query)
