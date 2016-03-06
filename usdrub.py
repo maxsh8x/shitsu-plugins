@@ -248,15 +248,15 @@ class Usd(modules.MessageModule):
     highlight = False
 
     def _currency(self, currency):
-        self.__result = u''
+        result = u''
         for c in currency:
             if c == '.':
                 c = 10
             else:
                 c = int(c)
             img = xmpp.Node("img", attrs={"alt": "img", "src": "data:image/gif;base64," + images[c]})
-            self.__result += unicode(img)
-        return self.__result
+            result += unicode(img)
+        return result
 
     @property
     def currency(self):
