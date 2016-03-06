@@ -43,7 +43,7 @@ class Chains:
         It's used for passing words from database.
         """
         st_curs = self.__conn.cursor()
-        respond = st_curs.execute('SELECT * FROM phrases')
+        respond = st_curs.execute('SELECT * FROM phrases ORDER BY RANDOM()')
         sentences = respond.fetchall()
         return sentences
 
