@@ -1,5 +1,3 @@
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
 from shitsu import xmpp
 from shitsu import modules
 from shitsu.utils.BeautifulSoup import BeautifulSoup
@@ -247,13 +245,11 @@ class Usd(modules.MessageModule):
     args = (0,)
     highlight = False
 
-    def _currency(self, currency):
-        result = u''
+    @staticmethod
+    def _animation(currency):
+        result = unicode()
         for c in currency:
-            if c == '.':
-                c = 10
-            else:
-                c = int(c)
+            c = int(c) if c != '.' else 10
             img = xmpp.Node("img", attrs={"alt": "img", "src": "data:image/gif;base64," + images[c]})
             result += unicode(img)
         return result
@@ -263,12 +259,12 @@ class Usd(modules.MessageModule):
         url = "https://tinyurl.com/hgezblc"
         data = utils.get_url(url)
         soup = BeautifulSoup(data)
-        ask = soup.query.results.ask.string
-        return ask, self._currency(ask[:5])
+        result = soup.query.results.ask.string
+        return result, self._animation(result[:5])
 
     def run(self):
         """
-        Anime dollar currency.
+        Dollar currency.
         For Psi+ (webkit version)  https://sourceforge.net/projects/psiplus/files/:
         Options -> Plugins -> Extended Options Plugin -> Groupchat -> Enable HTML rendering
         shitsu.cfg -> max_groupchat_length = 50000
