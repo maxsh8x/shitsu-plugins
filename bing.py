@@ -2,8 +2,6 @@ import json
 import urllib
 import urllib2
 from shitsu import modules
-from shitsu import utils
-reload(utils)
 
 
 class Bing(modules.MessageModule):
