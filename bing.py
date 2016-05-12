@@ -10,9 +10,11 @@ class Bing(modules.MessageModule):
     def run(self, query):
         """
         Add bing_api_key to shitsu.cfg
-        %bing Image hello
-        %bing Web hello
-        %bing hello (default Web)
+        Aliases:
+        %b = %bing
+        %bi = %bing Image
+        or
+        %bing Image hello world
         """
         sources = ['Web', 'Image']
         source = sources[0]
