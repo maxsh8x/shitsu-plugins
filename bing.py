@@ -16,7 +16,7 @@ class Bing(modules.MessageModule):
         or
         %bing Image hello world
         """
-        sources = ['Web', 'Image']
+        sources = ['Web', 'Image', 'Video', 'News']
         source = sources[0]
         for element in sources:
             if element in query:
@@ -43,13 +43,13 @@ class Bing(modules.MessageModule):
             return 'nothing :<'
         result = results[0]
         output = ''
-        if source == 'Web':
+        if source == 'Web' or source == 'News':
             output = u'{0}\n{1}\n{2}'.format(
                 result['Title'],
                 result['Description'],
                 result['Url']
             )
-        elif source == 'Image':
+        elif source == 'Image' or source == 'Video':
             output = u'{0}\n{1}'.format(
                 result['Title'],
                 result['MediaUrl']
