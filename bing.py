@@ -8,7 +8,19 @@ class Bing(modules.MessageModule):
     raw_query = True
 
     def run(self, query):
-        """Add bing_api_key to shitsu.cfg"""
+        """
+        Add bing_api_key to shitsu.cfg
+        %bing Image hello
+        %bing Web hello
+        %bing hell (default Web)
+        """
+        sources = ['Web', 'Image']
+        source = sources[0]
+        for element in sources:
+            if element in query:
+                query = query.replace(element, '')
+                source = element
+                break
         api_key = self._bot.cfg.get('bing_api_key', '')
         query = urllib.urlencode({
             'Query': "'{0}'".format(query.encode('utf-8')),
@@ -16,7 +28,7 @@ class Bing(modules.MessageModule):
             '$format': 'json'
         })
         base_url = 'https://api.datamarket.azure.com/Bing/Search/v1/'
-        url = '{0}Web?{1}'.format(base_url, query)
+        url = '{0}{1}?{2}'.format(base_url, source, query)
         password_mgr = urllib2.HTTPPasswordMgrWithDefaultRealm()
         password_mgr.add_password(None, base_url, '', api_key)
         auth_handler = urllib2.HTTPBasicAuthHandler(password_mgr)
@@ -28,9 +40,16 @@ class Bing(modules.MessageModule):
         if not results:
             return 'nothing :<'
         result = results[0]
-        output = u'{0}\n{1}\n{2}'.format(
-            result['Title'],
-            result['Description'],
-            result['Url']
-        )
+        output = ''
+        if source == 'Web':
+            output = u'{0}\n{1}\n{2}'.format(
+                result['Title'],
+                result['Description'],
+                result['Url']
+            )
+        elif source == 'Image':
+            output = u'{0}\n{1}'.format(
+                result['Title'],
+                result['MediaUrl']
+            )
         return output
