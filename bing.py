@@ -12,7 +12,7 @@ class Bing(modules.MessageModule):
         Add bing_api_key to shitsu.cfg
         %bing Image hello
         %bing Web hello
-        %bing hell (default Web)
+        %bing hello (default Web)
         """
         sources = ['Web', 'Image']
         source = sources[0]
