@@ -10,15 +10,16 @@ class Bing(modules.MessageModule):
     def run(self, query):
         """
         Add bing_api_key to shitsu.cfg
-        %bing Image hello
-        %bing Web hello
-        %bing hello (default Web)
+        %bing #image hello
+        %bing hello #web world
+        %bing hello (default #web)
         """
         sources = ['Web', 'Image']
         source = sources[0]
         for element in sources:
-            if element in query:
-                query = query.replace(element, '')
+            tag = '#{}'.format(element.lower())
+            if tag in query:
+                query = query.replace(tag, '')
                 source = element
                 break
         api_key = self._bot.cfg.get('bing_api_key', '')
