@@ -25,8 +25,8 @@ class Bing(modules.MessageModule):
                 break
         api_key = self._bot.cfg.get('bing_api_key', '')
         query = urllib.urlencode({
-            'Query': "'{0}'".format(query.encode('utf-8')),
-            'Adult': "'{0}'".format('Off'),
+            'Query': query.encode('utf-8'),
+            'Adult': 'Off',
             '$format': 'json'
         })
         base_url = 'https://api.datamarket.azure.com/Bing/Search/v1/'
