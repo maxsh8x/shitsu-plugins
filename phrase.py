@@ -18,11 +18,11 @@ class Chains:
         self.__result += arg + " "
         for phrase in self.sentences:
             words = phrase[0].split()
-            for word in words:
+            for i, word in enumerate(words):
                 if word == arg:
+                    # https://docs.python.org/2/glossary.html#term-eafp
                     try:
-                        word_index = words.index(word)
-                        next_word = words[word_index+1]
+                        next_word = words[i+1]
                         counter -= 1
                         return self._collocation(next_word, counter)
                     except IndexError:
@@ -69,12 +69,11 @@ class Chains:
 PATH = os.path.dirname(os.path.abspath(__file__))
 
 if __name__ == '__main__':
-    print "Uncomment the lines below."
-    # conn = sqlite3.connect(PATH + '/mlp.db')
-    # chains = Chains(conn)
-    # print chains.random
-    # print chains.collocation(chains.keyword)
-    # print chains.collocation(u"привет")
+    conn = sqlite3.connect(PATH + '/mlp.db')
+    chains = Chains(conn)
+    print(chains.random)
+    print(chains.collocation(chains.keyword))
+    print(chains.collocation(u"привет"))
 else:
     from shitsu import modules
 
