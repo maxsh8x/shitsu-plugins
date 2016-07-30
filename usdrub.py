@@ -14,13 +14,16 @@ class Usd(modules.MessageModule):
         result = unicode()
         for c in currency:
             c = int(c) if c != '.' else 10
-            img = xmpp.Node("img", attrs={"alt": "img", "src": "data:image/gif;base64," + images[c]})
+            img = xmpp.Node('img', attrs={
+                'alt': 'img',
+                'src': 'data:image/gif;base64,{0}'.format(images[c])
+            })
             result += unicode(img)
         return result
 
     @property
     def currency(self):
-        url = "https://tinyurl.com/hgezblc"
+        url = 'https://tinyurl.com/hgezblc'
         data = utils.get_url(url)
         soup = BeautifulSoup(data)
         result = soup.query.results.ask.string
@@ -33,4 +36,4 @@ class Usd(modules.MessageModule):
         Options -> Plugins -> Extended Options Plugin -> Groupchat -> Enable HTML rendering
         shitsu.cfg -> max_groupchat_length = 50000
         """
-        return self.currency[0], " <br />" + self.currency[1]
+        return self.currency[0], ' <br />'.format(self.currency[1])

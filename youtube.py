@@ -20,8 +20,11 @@ class Youtube(modules.MessageModule):
         """
         url_data = urlparse.urlparse(url)
         query = urlparse.parse_qs(url_data.query)
-        video = query["v"][0]
-        data = urlopen("http://img.youtube.com/vi/%s/mqdefault.jpg" % video)
+        video = query['v'][0]
+        data = urlopen('http://img.youtube.com/vi/{0}/mqdefault.jpg'.format(video))
         encoded_data = b64encode(data.read())
-        img = xmpp.Node("img", attrs={"alt": "img", "src": "data:image/jpeg;base64," + encoded_data})
-        return "Enable HTML rendering to see this preview", " <br />" + unicode(img)
+        img = xmpp.Node('img', attrs={
+            'alt': 'img',
+            'src': 'data:image/jpeg;base64,{0}'.format(encoded_data)
+        })
+        return 'Enable HTML rendering to see this preview', ' <br />'.format(unicode(img))
