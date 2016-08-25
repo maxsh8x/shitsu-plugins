@@ -1,8 +1,12 @@
+import pickle
+
 from shitsu import xmpp
 from shitsu import modules
 from shitsu.utils.BeautifulSoup import BeautifulSoup
 from shitsu import utils
-from base64_images import images
+
+pkl_file = open('images.pkl', 'rb')
+images = pickle.load(pkl_file)
 
 
 class Usd(modules.MessageModule):
@@ -12,11 +16,11 @@ class Usd(modules.MessageModule):
     @staticmethod
     def _animation(currency):
         result = unicode()
-        for c in currency:
-            c = int(c) if c != '.' else 10
+        for char in currency:
+            char = int(char) if char != '.' else 10
             img = xmpp.Node('img', attrs={
                 'alt': 'img',
-                'src': 'data:image/gif;base64,{0}'.format(images[c])
+                'src': 'data:image/gif;base64,{0}'.format(images[char])
             })
             result += unicode(img)
         return result
