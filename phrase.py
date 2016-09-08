@@ -23,14 +23,15 @@ class Chains:
         for phrase in self.sentences:
             words = phrase[0].split()
             for i, word in enumerate(words):
-                if word == arg:
-                    # https://docs.python.org/2/glossary.html#term-eafp
-                    try:
-                        next_word = words[i+1]
-                        counter -= 1
-                        return self._collocation(next_word, counter)
-                    except IndexError:
-                        break
+                if word != arg:
+                    continue
+                # https://docs.python.org/2/glossary.html#term-eafp
+                try:
+                    next_word = words[i+1]
+                except IndexError:
+                    break
+                counter -= 1
+                return self._collocation(next_word, counter)
 
     def collocation(self, arg):
         """
