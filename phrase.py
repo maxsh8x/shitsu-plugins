@@ -3,6 +3,10 @@
 import sqlite3
 import os
 
+from shitsu import modules
+
+PATH = os.path.dirname(os.path.abspath(__file__))
+
 
 class Chains:
     def __init__(self, connection):
@@ -13,7 +17,7 @@ class Chains:
         """
         Logic of generation words based on discrete-time Markov chain.
         """
-        if counter == 0:
+        if not counter:
             return
         self.__result += arg + " "
         for phrase in self.sentences:
@@ -66,27 +70,16 @@ class Chains:
         self.collocation(self.keyword)
         return self.__result
 
-PATH = os.path.dirname(os.path.abspath(__file__))
 
-if __name__ == '__main__':
-    conn = sqlite3.connect(PATH + '/mlp.db')
-    chains = Chains(conn)
-    print(chains.random)
-    print(chains.collocation(chains.keyword))
-    print(chains.collocation(u"привет"))
-else:
-    from shitsu import modules
+class Phrase(modules.MessageModule):
+    highlight = False
+    args = (0,)
 
-
-    class Phrase(modules.MessageModule):
-        highlight = False
-        args = (0,)
-
-        def run(self):
-            """
-            Send funny phrase from My Little Pony through discrete-time Markov chain.
-            """
-            # Russian dictionary with MLP phrases.
-            conn = sqlite3.connect(PATH + '/mlp.db')
-            chains = Chains(conn)
-            return chains.random
+    def run(self):
+        """
+        Send funny phrase from My Little Pony through discrete-time Markov chain.
+        """
+        # Russian dictionary with MLP phrases.
+        conn = sqlite3.connect(PATH + '/mlp.db')
+        chains = Chains(conn)
+        return chains.random
