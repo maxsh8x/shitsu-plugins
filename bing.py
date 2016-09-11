@@ -42,11 +42,9 @@ class Bing(modules.MessageModule):
         if not results:
             return 'nothing :<'
         result = results[0]
-        output = ''
+        fields = ()
         if source in ('Web', 'News'):
             fields = (result['Title'], result['Description'], result['Url'])
-            output = u''.join(fields, '\n')
         elif source in ('Image', 'Video'):
             fields = (result['Title'], result['MediaUrl'])
-            output = u''.join(fields, '\n')
-        return output
+        return u''.join(fields, '\n')
