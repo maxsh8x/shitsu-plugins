@@ -44,14 +44,9 @@ class Bing(modules.MessageModule):
         result = results[0]
         output = ''
         if source in ('Web', 'News'):
-            output = u'{0}\n{1}\n{2}'.format(
-                result['Title'],
-                result['Description'],
-                result['Url']
-            )
+            fields = (result['Title'], result['Description'], result['Url'])
+            output = u''.join(fields, '\n')
         elif source in ('Image', 'Video'):
-            output = u'{0}\n{1}'.format(
-                result['Title'],
-                result['MediaUrl']
-            )
+            fields = (result['Title'], result['MediaUrl'])
+            output = u''.join(fields, '\n')
         return output
