@@ -1,5 +1,3 @@
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
 import urlparse
 from shitsu import xmpp
 from shitsu import modules
