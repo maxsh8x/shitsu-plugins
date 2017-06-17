@@ -1,9 +1,7 @@
 import pickle
 
-from shitsu import xmpp
-from shitsu import modules
+from shitsu import xmpp, modules, utils
 from shitsu.utils.BeautifulSoup import BeautifulSoup
-from shitsu import utils
 
 pkl_file = open('images.pkl', 'rb')
 images = pickle.load(pkl_file)
